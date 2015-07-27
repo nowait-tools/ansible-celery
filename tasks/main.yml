@@ -1,0 +1,39 @@
+---
+- name: Create account for celery
+  user:
+    name: celery
+    system: yes
+    home: "{{ celery_home }}"
+    shell: /bin/false
+    state: present
+
+- name: Install celery via pip
+  pip:
+    name: celery{{ celery_pip_bundles }}
+    version: "{{ celery_version }}"
+    state: present
+
+- name: Install celery init script
+  template:
+    src: celery-init.j2
+    dest: /etc/init.d/celeryd
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Create log file if it doesn't already exist
+  file:
+    path: "{{ celery_log_path }}"
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Set up log rotation for celery logs
+  template:
+    src: celery-logrotate.j2
+    dest: /etc/logrotate.d/celeryd
+    owner: root
+    owner: root
+    mode: 0644
+  when: celery_rotate_logs

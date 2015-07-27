@@ -1,0 +1,11 @@
+{{ celery_log_path }} {
+   rotate {{ celery_logrotate_max_archives }}
+   {{ celery_logrotate_rotation_interval }}
+   compress
+   delaycompress
+   missingok
+   notifempty
+   postrotate
+     service celeryd restart
+   endscript
+}
