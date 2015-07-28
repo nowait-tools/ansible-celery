@@ -1,5 +1,6 @@
 Celery
 =========
+celery installer
 
 Requirements
 ------------
