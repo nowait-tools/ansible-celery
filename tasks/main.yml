@@ -4,7 +4,7 @@
     name: celery
     system: yes
     home: "{{ celery_home }}"
-    shell: /bin/false
+    shell: /bin/bash
     state: present
 
 - name: Install celery via pip
@@ -25,8 +25,8 @@
   file:
     path: "{{ celery_log_path }}"
     state: touch
-    owner: root
-    group: root
+    owner: celery
+    group: celery
     mode: 0644
 
 - name: Set up log rotation for celery logs
@@ -37,3 +37,9 @@
     owner: root
     mode: 0644
   when: celery_rotate_logs
+
+- name: Ensure celery service is running
+  service:
+    name: celeryd
+    state: started
+    enabled: yes

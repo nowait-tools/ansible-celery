@@ -11,6 +11,6 @@ galaxy_info:
     - all
   categories:
   - system
-  -
 
 dependencies:
+  - nowait.pip
