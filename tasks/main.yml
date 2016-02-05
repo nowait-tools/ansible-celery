@@ -34,7 +34,7 @@
     src: celery-logrotate.j2
     dest: /etc/logrotate.d/celeryd
     owner: root
-    owner: root
+    group: root
     mode: 0644
   when: celery_rotate_logs
 
