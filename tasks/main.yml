@@ -1,4 +1,10 @@
 ---
+- name: Install python-dev if needed
+  apt:
+    package: python-dev
+    state: present
+  when: ansible_os_family == "Debian" and celery_pip_bundles is defined and celery_pip_bundles
+
 - name: Create account for celery
   user:
     name: celery
